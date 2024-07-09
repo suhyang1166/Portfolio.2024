@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: "G M";
     width: 100%;
     margin: 0 auto;
-    max-width: 1920px;
+    /* max-width: 1920px; */
     overflow-x: hidden;
     background: #000;
     color: #fff;
@@ -34,8 +34,8 @@ const GlobalStyle = createGlobalStyle`
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <GlobalStyle />
-    <App />
-  </BrowserRouter>
+    <BrowserRouter>
+        <GlobalStyle />
+        <App />
+    </BrowserRouter>
 );
