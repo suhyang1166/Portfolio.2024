@@ -1,14 +1,16 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import Intro from "./components/Intro";
 import ScrollIntro from "./components/ScrollIntro";
 
-const Main = () => {
+const Main = forwardRef((props, ref) => {
   return (
     <>
-      <Intro />
+      <div ref={ref}>
+        <Intro />
+      </div>
       <ScrollIntro />
     </>
   );
-};
+});
 
 export default Main;
