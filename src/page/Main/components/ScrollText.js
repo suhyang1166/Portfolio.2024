@@ -25,6 +25,12 @@ const WhText = styled.p`
     font-size: 4.2vw;
     text-align: center;
     line-height: 110px;
+    @media (max-width: 1270px) {
+        font-size: 6vw;
+    }
+    @media (max-width: 600px) {
+        font-size: 10vw;
+    }
 `;
 
 const YgText = styled.p`
@@ -34,6 +40,12 @@ const YgText = styled.p`
     text-align: center;
     line-height: 110px;
     color: #bbf744;
+    @media (max-width: 1270px) {
+        font-size: 6vw;
+    }
+    @media (max-width: 600px) {
+        font-size: 10vw;
+    }
 `;
 
 const MoveImg = styled.div`
