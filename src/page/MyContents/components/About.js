@@ -22,6 +22,9 @@ const AboutWrap = styled.div`
   align-items: center;
   gap: 10vh;
   margin: 25vh;
+  @media (max-width: 600px) {
+    transform: scale(0.55);
+  }
 `;
 
 const Me = styled.div`

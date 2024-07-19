@@ -26,6 +26,9 @@ const HeaderWrap = styled.header`
       animation: ${fadeOn} 1s forwards;
       animation-delay: 3.5s;
     `}
+  @media (max-width: 600px) {
+    padding: 0 20px;
+  }
 `;
 
 const Logo = styled.img`
