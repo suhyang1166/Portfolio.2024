@@ -3,6 +3,7 @@ import styled from "styled-components";
 import NOT from "../../../assets/img/notfoundpage.jpg"; // 기본 이미지
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFigma, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -181,6 +182,8 @@ const Icon = styled.li`
 `;
 
 const ProjectCard = ({ item }) => {
+  const navigate = useNavigate();
+
   const goToSite = () => {
     window.open(item.site, "_blank");
   };
@@ -203,8 +206,8 @@ const ProjectCard = ({ item }) => {
     imageUrl = NOT; // 기본 이미지 설정
   }
 
-  const onClick = () => {
-    alert("모달창 준비중");
+  const goToDetail = () => {
+    navigate(`/${item.id}`);
   };
 
   return (
@@ -217,7 +220,7 @@ const ProjectCard = ({ item }) => {
               <h3>{item?.projectNM}</h3>
             </MainContents>
             <MoreInfo>
-              <MoreBtn onClick={onClick}>MORE</MoreBtn>
+              <MoreBtn onClick={goToDetail}>MORE</MoreBtn>
               <Icons>
                 {item?.figma ? (
                   <Icon onClick={goToFigma}>
@@ -257,7 +260,7 @@ const ProjectCard = ({ item }) => {
               <MainText>{item?.text}</MainText>
             </MainContents>
             <MoreInfo>
-              <MoreBtn onClick={onClick}>MORE</MoreBtn>
+              <MoreBtn onClick={goToDetail}>MORE</MoreBtn>
               <Icons>
                 {item?.figma ? (
                   <Icon onClick={goToFigma}>
