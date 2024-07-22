@@ -31,7 +31,7 @@ const Wrap = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  overflow: hidden;
+  /* overflow: hidden; */
   @media (max-width: 600px) {
     height: 100%;
   }

@@ -54,7 +54,7 @@ const Green = ({ shouldFadeOn }) => {
       duration: 2,
       zIndex: -100,
     });
-  }, []);
+  });
 
   return (
     <ImgWrap id="greenWrap">
