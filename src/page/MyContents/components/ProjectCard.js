@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NOT from "../../../assets/img/notfoundpage.jpg"; // 기본 이미지
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFigma, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { useNavigate } from "react-router-dom";
+import Modal from "../../Modal/Modal";
 
 const Container = styled.div`
   width: 100%;
   min-width: 100vw;
   height: 600px;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,17 +29,17 @@ const ImgWrap = styled.div`
   width: 100%;
   min-width: 500px;
   max-width: 800px;
-  height: 550px;
+  height: 580px;
   background-image: ${({ $imageUrl }) => `url(${$imageUrl}) `};
   background-position: top;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: all 1.5s;
   &:hover {
-    background-position: bottom;
+    /* background-position: bottom; */
   }
   @media (max-width: 1270px) {
     min-width: 300px;
@@ -182,7 +183,7 @@ const Icon = styled.li`
 `;
 
 const ProjectCard = ({ item }) => {
-  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const goToSite = () => {
     window.open(item.site, "_blank");
@@ -202,12 +203,11 @@ const ProjectCard = ({ item }) => {
       `${item?.img}` +
       ".png");
   } catch (err) {
-    console.error(`Could not find image: ${item?.img}`, err);
-    imageUrl = NOT; // 기본 이미지 설정
+    imageUrl = NOT;
   }
 
-  const goToDetail = () => {
-    navigate(`/${item.id}`);
+  const handleModal = () => {
+    setModalOpen(!modalOpen);
   };
 
   return (
@@ -220,7 +220,7 @@ const ProjectCard = ({ item }) => {
               <h3>{item?.projectNM}</h3>
             </MainContents>
             <MoreInfo>
-              <MoreBtn onClick={goToDetail}>MORE</MoreBtn>
+              <MoreBtn onClick={handleModal}>MORE</MoreBtn>
               <Icons>
                 {item?.figma ? (
                   <Icon onClick={goToFigma}>
@@ -260,7 +260,7 @@ const ProjectCard = ({ item }) => {
               <MainText>{item?.text}</MainText>
             </MainContents>
             <MoreInfo>
-              <MoreBtn onClick={goToDetail}>MORE</MoreBtn>
+              <MoreBtn onClick={handleModal}>MORE</MoreBtn>
               <Icons>
                 {item?.figma ? (
                   <Icon onClick={goToFigma}>
@@ -276,6 +276,9 @@ const ProjectCard = ({ item }) => {
           <ImgWrap onClick={goToSite} $imageUrl={imageUrl} />
         </>
       )}
+      {modalOpen ? (
+        <Modal setModalOpen={setModalOpen} item={item} imageUrl={imageUrl} />
+      ) : null}
     </Container>
   );
 };
