@@ -3,7 +3,6 @@ import Lottie from "lottie-react";
 import arr from "../../../assets/json/arr.json";
 import styled, { keyframes, css } from "styled-components";
 import Green from "./Green";
-import LottieIntro from "./LottieIntro";
 
 const Container = styled.div`
   width: 100%;
@@ -150,7 +149,6 @@ const Intro = () => {
 
   return (
     <Container>
-      {/* <LottieIntro shouldFadeOut={shouldFadeOut} /> */}
       <MainWrap shouldFadeOn={shouldFadeOn}>
         <Title>
           <h1>SUHYANG</h1>
