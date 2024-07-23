@@ -123,6 +123,8 @@ const IndexList = styled.li`
 const MainText = styled.p`
   font-family: "G L";
   font-size: 18px;
+  line-height: 28px;
+  word-break: keep-all;
 `;
 
 const MoreInfo = styled.div`
