@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Explain from "./components/Explain";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Container = styled.div`
   width: 100vw;
@@ -99,6 +103,7 @@ const Modal = ({ item, setModalOpen }) => {
     loadVideo();
 
     document.body.style.overflow = "hidden";
+
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -113,10 +118,18 @@ const Modal = ({ item, setModalOpen }) => {
     }
   };
 
+  const handleBgClick = (e) => {
+    setModalOpen(false);
+  };
+
+  const handleMainClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <Container>
-      <Bg onClick={() => setModalOpen(false)} />
-      <Main>
+      <Bg onClick={handleBgClick} />
+      <Main onClick={handleMainClick}>
         <ProjectWrap height={projectWrapHeight()}>
           <ImgWrap>
             {loading ? (
