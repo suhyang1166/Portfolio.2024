@@ -9,19 +9,24 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const ProjectContainer = styled.div`
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  height: 105vh;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   margin-top: 100px;
+  overflow: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   h1 {
     font-family: "G B";
     font-size: 60px;
     text-align: center;
     color: #bbf744;
-    margin-bottom: 100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
 `;
 
@@ -31,7 +36,6 @@ const Wrap = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  /* overflow: hidden; */
   z-index: 100;
   @media (max-width: 600px) {
     height: 100%;
@@ -39,7 +43,7 @@ const Wrap = styled.div`
 `;
 
 const CardWrap = styled.div`
-  width: ${({ cardCount }) => cardCount * 100}vw;
+  width: ${({ $cardCount }) => $cardCount * 100}vw;
   display: flex;
   justify-content: center;
   align-items: cneter;
@@ -56,7 +60,7 @@ const CircleWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 const Circle = styled.div`
@@ -77,14 +81,39 @@ const Circle = styled.div`
 
 const Project = () => {
   const containerRef = useRef(null);
+  const projectRef = useRef(null);
   const cardWrapRef = useRef(null);
   const circlesRef = useRef([]);
 
   useEffect(() => {
     const container = containerRef.current;
+    const project = projectRef.current;
     const cardWrap = cardWrapRef.current;
 
-    const startValue = window.innerHeight < 940 ? "top+=50 top" : "-80vh 0";
+    // ProjectTitle 애니메이션
+    gsap.fromTo(
+      project,
+      {
+        y: -50,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 2,
+        ease: "none",
+        scrollTrigger: {
+          trigger: project,
+          start: "center 60%",
+          end: "center 30%",
+          scrub: 1, // 스크롤과 애니메이션의 동기화를 조절
+          // markers: true,
+          toggleActions: "play none none none", // 스크롤 동작에 따른 제
+        },
+      }
+    );
+
+    const startValue = window.innerHeight < 900 ? "top+=25 top" : "-70vh 0";
 
     const scrollTween = gsap.to(cardWrap, {
       x: () => -(cardWrap.scrollWidth - window.innerWidth),
@@ -143,9 +172,9 @@ const Project = () => {
 
   return (
     <ProjectContainer ref={containerRef}>
-      <h1>PROJECT</h1>
+      <h1 ref={projectRef}>PROJECT</h1>
       <Wrap>
-        <CardWrap ref={cardWrapRef} cardCount={projectList.length}>
+        <CardWrap ref={cardWrapRef} $cardCount={projectList.length}>
           {projectList.map((item) => (
             <ProjectCard key={item.id} item={item} />
           ))}

@@ -9,12 +9,13 @@ gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
 const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 150vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
 `;
 
 const Test = styled.div`

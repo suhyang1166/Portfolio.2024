@@ -14,13 +14,14 @@ const Container = styled.div`
   gap: 60px;
   line-height: 24px;
   position: relative;
+  color: #000;
 `;
 
 const Span = styled.span`
   position: relative;
   width: 100%;
   position: sticky;
-  top: 0;
+  top: 20px;
   right: 0;
   line-height: 30px;
   font-size: 28px;
@@ -30,6 +31,8 @@ const Span = styled.span`
   mix-blend-mode: difference;
 `;
 
+const CloseWrap = styled.div``;
+
 const Close = styled(FontAwesomeIcon)`
   width: 30px;
   height: 30px;
@@ -38,7 +41,7 @@ const Close = styled(FontAwesomeIcon)`
 const MainTitle = styled.div`
   font-size: 40px;
   font-family: "G B";
-  color: #bbf744;
+  /* color: #bbf744; */
 `;
 
 const MainContents = styled.div`
@@ -48,7 +51,7 @@ const MainContents = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  border-top: 1px solid #333;
+  border-top: 1px solid #d9d9d9;
   padding-top: 20px;
   /* align-content: space-between; */
   gap: 20px;
@@ -103,9 +106,9 @@ const Explain = ({ item, setModalOpen }) => {
   return (
     <>
       <Span onClick={() => setModalOpen(false)}>
-        <div>
+        <CloseWrap>
           <Close icon={faCircleXmark} />
-        </div>
+        </CloseWrap>
       </Span>
       <Container>
         <MainTitle>{item.projectNM}</MainTitle>

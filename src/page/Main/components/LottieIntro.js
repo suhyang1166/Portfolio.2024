@@ -19,8 +19,8 @@ const StyledLottie = styled(Lottie)`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  ${({ shouldFadeOut }) =>
-    shouldFadeOut &&
+  ${({ $shouldFadeOut }) =>
+    $shouldFadeOut &&
     css`
       animation: ${fadeOut} 0.8s forwards;
       animation-delay: 0.8s;
@@ -41,7 +41,7 @@ const LottieIntro = () => {
   }, []);
 
   return (
-    <StyledLottie animationData={introLottie} shouldFadeOut={shouldFadeOut} />
+    <StyledLottie animationData={introLottie} $shouldFadeOut={shouldFadeOut} />
   );
 };
 

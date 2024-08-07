@@ -28,8 +28,8 @@ const MainWrap = styled.div`
   justify-content: center;
   align-items: center;
   opacity: 0;
-  ${({ shouldFadeOn }) =>
-    shouldFadeOn &&
+  ${({ $shouldFadeOn }) =>
+    $shouldFadeOn &&
     css`
       animation: ${fadeOn} 1.5s forwards;
       animation-delay: 1.5s;
@@ -37,27 +37,31 @@ const MainWrap = styled.div`
 `;
 
 const Title = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  /* position: relative; */
   h1 {
+    /* width: 100%; */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18vw;
+    font-size: 17.5vw;
     text-align: center;
     font-family: "G B";
     line-height: 16vw;
+    /* overflow: hidden; */
   }
 `;
 
 const textMove = keyframes`
   0% {
-    transform: translateX(0);
+    transform: translateX(0%);
   }
   100% {
     transform: translateX(-100%);
@@ -68,7 +72,7 @@ const hide = keyframes`
   0% {
     opacity: 0;
   }
-  20% {
+  40% {
     opacity: 0;
   }
   100% {
@@ -86,31 +90,28 @@ const TextAni = styled.div`
   z-index: 100;
   background: #000;
   color: #bbf744;
+  overflow: hidden;
 `;
 
 const TextMove = styled.div`
-  position: relative;
-  width: 350vmin;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  ${({ hideText }) =>
-    hideText &&
+  position: relative;
+  width: 100%;
+  height: 5.8vmin;
+  transform: translateX(0);
+  ${({ $hideText }) =>
+    $hideText &&
     css`
-      animation: ${hide} 1s forwards;
-      animation-delay: 3s;
+      animation: ${hide} 4s forwards, ${textMove} 12s linear infinite 3s;
     `}
-  p {
-    width: 100%;
-    font-family: "G L";
-    font-size: 3vmin;
-    text-align: center;
-    line-height: 5.4vmin;
-    animation: ${textMove} 15s linear infinite;
-    animation-delay: 5s;
-    /* opacity: 0; */
-  }
+`;
+
+const Text = styled.div`
+  display: flex;
+  font-family: "G L";
+  font-size: 3vmin;
+  line-height: 5.4vmin;
+  white-space: nowrap;
 `;
 
 const ArrLottie = styled(Lottie)`
@@ -118,28 +119,26 @@ const ArrLottie = styled(Lottie)`
   height: 150px;
   margin-bottom: 50px;
   opacity: 0;
-  ${({ shouldFadeOn }) =>
-    shouldFadeOn &&
+  ${({ $shouldFadeOn }) =>
+    $shouldFadeOn &&
     css`
       animation: ${fadeOn} 1s forwards;
-      animation-delay: 3.5s;
+      animation-delay: 2.5s;
     `}
 `;
 
 const Intro = () => {
-  const [shouldFadeOut, setShouldFadeOut] = useState(false);
   const [shouldFadeOn, setShouldFadeOn] = useState(false);
   const [hideText, setHideText] = useState(false);
 
   useEffect(() => {
     const fadeTimer = setTimeout(() => {
-      setShouldFadeOut(true);
       setShouldFadeOn(true);
     }, 800);
 
     const hideTimer = setTimeout(() => {
       setHideText(true);
-    }, 1000);
+    }, 2000); // Ensure text is visible for 2 seconds before starting animation
 
     return () => {
       clearTimeout(fadeTimer);
@@ -149,28 +148,27 @@ const Intro = () => {
 
   return (
     <Container>
-      <MainWrap shouldFadeOn={shouldFadeOn}>
+      <MainWrap $shouldFadeOn={shouldFadeOn}>
         <Title>
-          <h1>SUHYANG</h1>
+          <h1 $shouldFadeOn={shouldFadeOn}>SUHYANG</h1>
           <TextAni>
-            <TextMove hideText={hideText}>
-              <p>
-                Hello, Thank you for visiting my site! Click the menu for more
-                information
-              </p>
-              <p>
-                Hello, Thank you for visiting my site! Click the menu for more
-                information
-              </p>
-              <p>
-                Hello, Thank you for visiting my site! Click the menu for more
-                information
-              </p>
+            <TextMove $hideText={hideText}>
+              <Text>
+                Hello and welcome to my site! I appreciate your visit and am
+                excited to showcase my work and skills. Combining innovative
+                design with functionality, I create solutions that are not only
+                visually appealing but also highly effective in meeting user
+                needs. I ensure a perfect balance between design and user
+                experience, striving to create interfaces that are both
+                beautiful and intuitive to use. I bring your ideas to life by
+                applying user-centered design principles and leveraging
+                cutting-edge technology to build solutions that stand out.
+              </Text>
             </TextMove>
           </TextAni>
         </Title>
-        <Green shouldFadeOn={shouldFadeOn} />
-        <ArrLottie shouldFadeOn={shouldFadeOn} animationData={arr} />
+        <Green $shouldFadeOn={shouldFadeOn} />
+        <ArrLottie $shouldFadeOn={shouldFadeOn} animationData={arr} />
       </MainWrap>
     </Container>
   );
