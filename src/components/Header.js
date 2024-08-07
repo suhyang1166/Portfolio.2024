@@ -10,7 +10,7 @@ const fadeOn = keyframes`
 const HeaderWrap = styled.header`
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -20,11 +20,11 @@ const HeaderWrap = styled.header`
   color: #fff;
   z-index: 1000;
   opacity: 0;
-  ${({ shouldFadeOn }) =>
-    shouldFadeOn &&
+  ${({ $shouldFadeOn }) =>
+    $shouldFadeOn &&
     css`
       animation: ${fadeOn} 1s forwards;
-      animation-delay: 3.5s;
+      animation-delay: 2.5s;
     `}
   @media (max-width: 600px) {
     padding: 0 20px;
@@ -84,7 +84,7 @@ const Header = ({ handleMenuClick }) => {
   }, []);
 
   return (
-    <HeaderWrap shouldFadeOn={shouldFadeOn}>
+    <HeaderWrap $shouldFadeOn={shouldFadeOn}>
       <Logo src={LOGO} onClick={() => handleMenuClick("MAIN")} />
       <IndexWrap>
         {menuList.map((menu, idx) => (

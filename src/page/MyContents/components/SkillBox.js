@@ -5,34 +5,45 @@ const Container = styled.div`
   width: 20%;
   min-width: 240px;
   height: 320px;
+  /* border: 0.5px solid rgba(187, 247, 68, 0.8); */
   border-radius: 30px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  /* box-shadow: 0 0 10px rgba(187, 247, 68, 0.5); */
   padding: 20px;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s;
+  cursor: pointer;
   &:hover {
     transform: scale(1.1);
     border: 2px solid #bbf744;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); */
     box-shadow: 0 0 10px rgba(187, 247, 68, 0.8);
     background: rgba(0, 0, 0, 1);
+    /* background: rgba(187, 247, 68, 1); */
     color: #fff;
-  }
-  &:hover h3 {
-    color: #bbf744;
   }
   h3 {
     font-family: "G B";
     font-size: 24px;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+  }
+  &:hover h3 {
+    opacity: 1;
+    text-shadow: none;
   }
   ul {
+    width: 100%;
     font-family: "G L";
     line-height: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    opacity: 0;
+  }
+  &:hover ul {
+    opacity: 1;
   }
 `;
 
@@ -81,7 +92,7 @@ const SkillImg = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  background-color: rgba(255, 255, 255, 1);
+  /* background-color: rgba(255, 255, 255, 0.8); */
   border-radius: 5px;
   padding: 20px;
 `;

@@ -1,0 +1,15 @@
+[debug] [2024-07-31T05:33:12.785Z] ----------------------------------------------------------------------
+[debug] [2024-07-31T05:33:12.786Z] Command:       /usr/local/bin/node /Users/kimsuhyang/.npm-global/bin/firebase deploy
+[debug] [2024-07-31T05:33:12.787Z] CLI Version:   13.10.2
+[debug] [2024-07-31T05:33:12.787Z] Platform:      darwin
+[debug] [2024-07-31T05:33:12.787Z] Node Version:  v20.11.1
+[debug] [2024-07-31T05:33:12.787Z] Time:          Wed Jul 31 2024 14:33:12 GMT+0900 (대한민국 표준시)
+[debug] [2024-07-31T05:33:12.787Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-07-31T05:33:12.788Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-07-31T05:33:12.851Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-07-31T05:33:12.851Z] > authorizing via signed-in user (yooyootea1166@gmail.com)
+[debug] [2024-07-31T05:33:12.851Z] [iam] checking project portfolio-sh-6d556 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-07-31T05:33:12.852Z] > refreshing access token with scopes: []
+[debug] [2024-07-31T05:33:12.852Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-07-31T05:33:12.852Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]

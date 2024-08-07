@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 const BG = bg;
 
 const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100%;
   position: relative;
 `;
@@ -22,13 +22,13 @@ const Container = styled.div`
 const Background = styled.div`
   position: sticky;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-image: url(${BG});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.3;
+  opacity: 0.4;
   z-index: -1000;
   transform: scale(0);
 `;

@@ -1,8 +1,17 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useRef } from "react";
+import styled, { keyframes } from "styled-components";
 import mydata from "../../../data/mydata";
 import SkillBox from "../components/SkillBox";
 import ME from "../../../assets/img/me.jpeg";
+import ICON01 from "../../../assets/img/deco/icon01.svg";
+import ICON02 from "../../../assets/img/deco/icon04.svg";
+import ICON03 from "../../../assets/img/deco/icon03.png";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
 const Container = styled.div`
   width: 100%;
@@ -11,6 +20,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  gap: 80vh;
 `;
 
 const AboutWrap = styled.div`
@@ -21,7 +31,7 @@ const AboutWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10vh;
-  margin: 25vh;
+  margin-top: 20vh;
   @media (max-width: 600px) {
     transform: scale(0.55);
   }
@@ -58,7 +68,7 @@ const Title = styled.h1`
 
 const MyName = styled.div`
   position: absolute;
-  top: 60px;
+  top: 100px;
   left: 350px;
   width: auto;
   gap: 15px;
@@ -69,9 +79,6 @@ const MyName = styled.div`
     b {
       font-family: "G M";
     }
-  }
-  p:last-of-type {
-    padding-top: 15px;
   }
   h3 {
     font-size: 32px;
@@ -113,7 +120,7 @@ const WorkUl = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: flex-start;
   gap: 30px;
   h2 {
@@ -136,17 +143,40 @@ const WorkList = styled.li`
 
 const Skills = styled.div`
   width: 100%;
+  height: 200vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  h1 {
+  position: relative;
+`;
+
+const SkillTitle = styled.h1`
+  width: 100%;
+  /* height: 280vh; */
+  z-index: -100;
+  /* transition: all 0.5s ease; */
+  position: relative;
+  h3 {
+    width: 100%;
+    height: 70px;
     font-family: "G B";
-    font-size: 60px;
+    /* font-size: 17.5vw; */
     text-align: center;
     color: #bbf744;
-    padding-bottom: 100px;
+    position: sticky; /* 스크롤에 따라 고정 */
+    top: 50%;
+    transform: translateY(-40%);
+    /* padding-bottom: 100px; */
   }
+`;
+
+const SkillWrap = styled.div`
+  width: 100%;
+  height: 300px;
+  position: sticky;
+  top: 45%;
+  transform: translateY(-50%);
 `;
 
 const Skill = styled.div`
@@ -156,19 +186,174 @@ const Skill = styled.div`
   align-items: center;
   gap: 30px;
   padding: 0 50px;
+  position: relative;
+`;
+
+const rotate01 = keyframes`
+  0% { transform: rotate3d(1, 1, 10, 0deg);}
+  100% { transform: rotate3d(1, 1, 10, 360deg); }
+`;
+
+const rotate02 = keyframes`
+  0% { transform: rotate3d(1, 1, 10, 0deg);}
+  100% { transform: rotate3d(1, 1, 10, -360deg); }
+`;
+
+const Icon01 = styled.div`
+  width: 18vw;
+  height: 18vw;
+  background: url(${(props) => props.$icon}) center/contain no-repeat;
+  position: absolute;
+  top: -25vh;
+  left: 0;
+  animation: ${rotate01} 5s infinite linear;
+`;
+
+const Icon02 = styled.div`
+  width: 2vw;
+  height: 2vw;
+  background: url(${(props) => props.$icon}) center/contain no-repeat;
+  position: absolute;
+  top: -16vh;
+  left: 58%;
+`;
+
+const Icon03 = styled.div`
+  width: 20vw;
+  height: 20vw;
+  background: url(${(props) => props.$icon}) center/contain no-repeat;
+  position: absolute;
+  bottom: -15vh;
+  right: -10vh;
+  animation: ${rotate02} 5s infinite linear;
 `;
 
 const About = () => {
+  const aboutRef = useRef(null);
+  const skillRef = useRef(null);
+  const skillBoxRef = useRef(null);
+
+  useGSAP(() => {
+    const about = aboutRef.current;
+    const skill = skillRef.current;
+    const skillBoxes = skillBoxRef.current;
+
+    // About 애니메이션
+    gsap.fromTo(
+      about,
+      {
+        // x: -120,
+        opacity: 0,
+      },
+      {
+        // x: 0,
+        opacity: 1,
+        duration: 1.5, // 애니메이션의 지속 시간을 조정
+        ease: "none",
+        scrollTrigger: {
+          trigger: about,
+          start: "top 90%",
+          end: "center 60%",
+          scrub: 1, // 스크롤과 애니메이션의 동기화를 조절
+          // markers: true,
+          toggleActions: "play none none none", // 스크롤 동작에 따른 제
+        },
+      }
+    );
+
+    // SkillTitle 애니메이션
+    const skillTitleTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: skill,
+        start: "top-=50 60%",
+        end: "200vh+=200 200vh",
+        scrub: 1,
+        // markers: true,
+      },
+    });
+
+    skillTitleTl
+      .fromTo(
+        skill,
+        {
+          y: 150,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 10,
+          ease: "none",
+        }
+      )
+      .fromTo(
+        skill,
+        {
+          fontSize: "20vw",
+        },
+        {
+          duration: 200,
+          ease: "none",
+          fontSize: "60px",
+          scrub: 0.01,
+        }
+      )
+      .fromTo(
+        skill,
+        {
+          // fontSize: "20vw",
+        },
+        {
+          duration: 10,
+          ease: "none",
+          color: "#fff",
+          scrub: 0.01,
+        }
+      )
+      .fromTo(
+        skillBoxes,
+        {
+          y: -50,
+          opacity: 0,
+        },
+        {
+          y: 50,
+          opacity: 1,
+          duration: 2,
+          ease: "none",
+        }
+      );
+
+    // 둥실둥실 애니메이션
+    gsap.fromTo(
+      [skill, skillBoxes],
+      {
+        scale: 1,
+      },
+      {
+        scale: 1.02, // 움직이는 거리
+        repeat: -1, // 무한 반복
+        yoyo: true, // 애니메이션을 되감기
+        duration: 2, // 애니메이션 한 사이클의 시간
+        ease: "sine.inOut",
+      }
+    );
+
+    // Clean up
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  });
+
   return (
     <Container>
-      <AboutWrap>
+      <AboutWrap ref={aboutRef}>
         <Me>
           <MyImg />
           <Title>ABOUT</Title>
           <MyName>
             <p>KIM SU HYANG</p>
             <h3>김 수 향</h3>
-            <p>1997.10.06</p>
           </MyName>
         </Me>
         <Text>
@@ -204,12 +389,19 @@ const About = () => {
         </WorkWrap>
       </AboutWrap>
       <Skills>
-        <h1>SKILLS</h1>
-        <Skill>
-          {mydata.skills.map((skill) => (
-            <SkillBox key={skill.id} skill={skill} />
-          ))}
-        </Skill>
+        <SkillWrap>
+          <SkillTitle>
+            <h3 ref={skillRef}>SKILLS</h3>
+          </SkillTitle>
+          <Skill ref={skillBoxRef}>
+            <Icon01 $icon={ICON01} />
+            <Icon02 $icon={ICON02} />
+            <Icon03 $icon={ICON03} />
+            {mydata.skills.map((skill, idx) => (
+              <SkillBox key={skill.id} skill={skill} />
+            ))}
+          </Skill>
+        </SkillWrap>
       </Skills>
     </Container>
   );

@@ -279,7 +279,12 @@ const ProjectCard = ({ item }) => {
         </>
       )}
       {modalOpen ? (
-        <Modal setModalOpen={setModalOpen} item={item} imageUrl={imageUrl} />
+        <Modal
+          goToSite={goToSite}
+          setModalOpen={setModalOpen}
+          item={item}
+          imageUrl={imageUrl}
+        />
       ) : null}
     </Container>
   );
