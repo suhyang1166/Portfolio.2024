@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import mydata from "../../../data/mydata";
 import ContactBox from "../components/ContactBox";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(ScrollTrigger);
 
 const Container = styled.div`
   width: 100vw;
@@ -40,8 +46,35 @@ const Contents = styled.div`
 `;
 
 const Contact = () => {
+  const contactRef = useRef(null);
+
+  useGSAP(() => {
+    const contact = contactRef.current;
+
+    gsap.fromTo(
+      contact,
+      {
+        opacity: 0,
+        y: -150,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 120,
+        ease: "none",
+        scrollTrigger: {
+          trigger: contact,
+          start: "top+=7500 top",
+          end: "bottom+=7500 bottom",
+          scrub: 1,
+          // markers: true,
+        },
+      }
+    );
+  });
+
   return (
-    <Container>
+    <Container ref={contactRef}>
       <h1>CONTACT</h1>
       <Contents>
         {mydata.contact.map((item, idx) => (

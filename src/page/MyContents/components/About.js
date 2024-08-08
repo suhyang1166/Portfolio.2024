@@ -31,7 +31,7 @@ const AboutWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10vh;
-  margin-top: 20vh;
+  margin-top: 100vh;
   @media (max-width: 600px) {
     transform: scale(0.55);
   }
@@ -230,36 +230,64 @@ const Icon03 = styled.div`
 
 const About = () => {
   const aboutRef = useRef(null);
+  const aboutTitleRef = useRef(null);
   const skillRef = useRef(null);
   const skillBoxRef = useRef(null);
 
   useGSAP(() => {
     const about = aboutRef.current;
+    const aboutTitle = aboutTitleRef.current;
     const skill = skillRef.current;
     const skillBoxes = skillBoxRef.current;
 
     // About 애니메이션
-    gsap.fromTo(
-      about,
-      {
-        // x: -120,
-        opacity: 0,
+    const aboutTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: about,
+        start: "top-=300 100%",
+        end: "top 60%",
+        scrub: 0.5, // 스크롤과 애니메이션의 동기화를 조절
+        // markers: true,
+        toggleActions: "play none none none", // 스크롤 동작에 따른 제
       },
-      {
-        // x: 0,
-        opacity: 1,
-        duration: 1.5, // 애니메이션의 지속 시간을 조정
-        ease: "none",
-        scrollTrigger: {
-          trigger: about,
-          start: "top 90%",
-          end: "center 60%",
-          scrub: 1, // 스크롤과 애니메이션의 동기화를 조절
-          // markers: true,
-          toggleActions: "play none none none", // 스크롤 동작에 따른 제
+    });
+
+    aboutTl
+      .fromTo(
+        aboutTitle,
+        {
+          opacity: 0,
+          y: -800,
         },
-      }
-    );
+        {
+          opacity: 1,
+          y: -800,
+          duration: 60,
+          ease: "none",
+        }
+      )
+      .fromTo(
+        aboutTitle,
+        {
+          fontSize: "20vw",
+          y: -800,
+          textAlign: "center",
+          width: "100vw",
+          right: "50%",
+          translateX: "50%",
+        },
+        {
+          fontSize: "110px",
+          y: 0,
+          textAlign: "normal",
+          width: "480px",
+          right: "-20px",
+          translateX: 0,
+          duration: 300,
+          ease: "none",
+        },
+        "+=3"
+      );
 
     // SkillTitle 애니메이션
     const skillTitleTl = gsap.timeline({
@@ -350,7 +378,7 @@ const About = () => {
       <AboutWrap ref={aboutRef}>
         <Me>
           <MyImg />
-          <Title>ABOUT</Title>
+          <Title ref={aboutTitleRef}>ABOUT</Title>
           <MyName>
             <p>KIM SU HYANG</p>
             <h3>김 수 향</h3>
