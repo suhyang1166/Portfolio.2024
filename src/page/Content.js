@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import Header from "../components/Header";
 import Main from "./Main/Main";
 import Form from "./MyContents/Form";
-import LottieIntro from "./Main/components/LottieIntro";
 
 const Content = () => {
   const mainRef = useRef(null);
@@ -25,7 +24,6 @@ const Content = () => {
 
   return (
     <div>
-      <LottieIntro />
       <Header handleMenuClick={handleMenuClick} />
       <Main ref={mainRef} />
       <Form refs={sectionRefs} />
