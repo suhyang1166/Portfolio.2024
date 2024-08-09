@@ -53,9 +53,9 @@ const Contact = () => {
     const contact = contactRef.current;
 
     const startValue =
-      window.innerHeight < 900 ? "top+=6000 top" : "top+=9200 top";
+      window.innerHeight < 900 ? "top+=7500 top" : "top+=9200 top";
     const endValue =
-      window.innerHeight < 900 ? "bottom+=6000 bottom" : "bottom+=9200 bottom";
+      window.innerHeight < 900 ? "bottom+=7500 bottom" : "bottom+=9200 bottom";
 
     gsap.fromTo(
       contact,
