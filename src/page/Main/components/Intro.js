@@ -44,19 +44,20 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  /* position: relative; */
-  h1 {
-    /* width: 100%; */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 17.5vw;
-    text-align: center;
-    font-family: "G B";
-    line-height: 16vw;
-    /* overflow: hidden; */
-  }
+  position: relative;
+`;
+
+const Name = styled.h1`
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 17.5vw;
+  text-align: center;
+  font-family: "G B";
+  line-height: 16vw;
 `;
 
 const textMove = keyframes`
@@ -80,17 +81,36 @@ const hide = keyframes`
   }
 `;
 
+const textFadeOn = keyframes`
+  0% { 
+    opacity: 0; 
+    width: 0; 
+    transform: translateX(50%); 
+  }
+  100% { 
+    opacity: 1; 
+    width: 100%; 
+    transform: translateX(0); 
+  }
+`;
+
 const TextAni = styled.div`
   width: 100%;
   height: 5.8vmin;
   position: absolute;
-  top: 50%;
+  top: 48%;
   left: 0;
   transform: translateY(-50%);
   z-index: 100;
   background: #000;
   color: #bbf744;
   overflow: hidden;
+  ${({ $shouldFadeOn }) =>
+    $shouldFadeOn &&
+    css`
+      animation: ${textFadeOn} 1s forwards;
+      animation-delay: 1.5s;
+    `}
 `;
 
 const TextMove = styled.div`
@@ -115,6 +135,8 @@ const Text = styled.div`
 `;
 
 const ArrLottie = styled(Lottie)`
+  position: absolute;
+  bottom: 0;
   width: 150px;
   height: 150px;
   margin-bottom: 50px;
@@ -150,8 +172,8 @@ const Intro = () => {
     <Container>
       <MainWrap $shouldFadeOn={shouldFadeOn}>
         <Title>
-          <h1 $shouldFadeOn={shouldFadeOn}>SUHYANG</h1>
-          <TextAni>
+          <Name $shouldFadeOn={shouldFadeOn}>SUHYANG</Name>
+          <TextAni $shouldFadeOn={shouldFadeOn}>
             <TextMove $hideText={hideText}>
               <Text>
                 Hello and welcome to my site! I appreciate your visit and am
@@ -166,9 +188,9 @@ const Intro = () => {
               </Text>
             </TextMove>
           </TextAni>
+          <ArrLottie $shouldFadeOn={shouldFadeOn} animationData={arr} />
         </Title>
         <Green $shouldFadeOn={shouldFadeOn} />
-        <ArrLottie $shouldFadeOn={shouldFadeOn} animationData={arr} />
       </MainWrap>
     </Container>
   );

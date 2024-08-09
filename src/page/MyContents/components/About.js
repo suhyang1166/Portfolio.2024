@@ -56,7 +56,7 @@ const MyImg = styled.div`
   background: url(${ME}) center/cover no-repeat;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   width: 480px;
   position: absolute;
   bottom: -20px;
@@ -151,12 +151,13 @@ const Skills = styled.div`
   position: relative;
 `;
 
-const SkillTitle = styled.h1`
+const SkillTitle = styled.div`
   width: 100%;
   /* height: 280vh; */
   z-index: -100;
   /* transition: all 0.5s ease; */
   position: relative;
+
   h3 {
     width: 100%;
     height: 70px;

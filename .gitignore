@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /src/data
+/src/assets/video/book.mp4
+/src/assets/video/movie.mp4

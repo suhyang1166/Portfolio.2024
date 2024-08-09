@@ -62,10 +62,11 @@ const ContentsTitle = styled.div`
   font-size: 24px;
   font-family: "G M";
   /* padding-top: 30px; */
-  padding: 6px;
+  padding: 2px;
   color: #000;
   /* background: #fff; */
-  background: rgba(187, 247, 68, 1);
+  /* background: rgba(187, 247, 68, 1); */
+  box-shadow: inset 0 -18px 0 rgba(187, 247, 68, 0.7);
   border-radius: 3px;
 `;
 
