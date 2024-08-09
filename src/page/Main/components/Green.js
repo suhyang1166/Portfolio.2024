@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import green from "../../../assets/img/deco/3d.png";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,9 +25,6 @@ const Green3D = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   transform: rotate3d(1, 1, 10, 45deg);
-  opacity: ${({ $shouldFadeOn }) => ($shouldFadeOn ? 1 : 0)};
-  transition: opacity 1.5s;
-
   @media (max-width: 1270px) {
     width: 200px;
   }
@@ -35,11 +33,40 @@ const Green3D = styled.div`
   }
 `;
 
-const Green = ({ $shouldFadeOn }) => {
-  useEffect(() => {
-    gsap.to("#green", {
+const Green = () => {
+  const greenWrapRef = useRef(null);
+  const greenRef = useRef(null);
+
+  useGSAP(() => {
+    const greenWrap = greenWrapRef.current;
+    const green = greenRef.current;
+
+    gsap.fromTo(
+      greenWrap,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 3.2,
+      }
+    );
+    gsap.fromTo(
+      greenWrap,
+      {
+        scale: 1,
+      },
+      {
+        scale: 1.02, // 움직이는 거리
+        repeat: -1, // 무한 반복
+        yoyo: true, // 애니메이션을 되감기
+        duration: 2, // 애니메이션 한 사이클의 시간
+        ease: "sine.inOut",
+      }
+    );
+
+    gsap.to(green, {
       scrollTrigger: {
-        trigger: "#greenWrap",
+        trigger: greenWrap,
         start: "top top",
         end: "+=5000",
         scrub: 3,
@@ -54,8 +81,8 @@ const Green = ({ $shouldFadeOn }) => {
   }, []);
 
   return (
-    <ImgWrap id="greenWrap">
-      <Green3D id="green" $shouldFadeOn={$shouldFadeOn} />
+    <ImgWrap ref={greenWrapRef}>
+      <Green3D ref={greenRef} />
     </ImgWrap>
   );
 };

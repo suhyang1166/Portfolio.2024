@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef } from "react";
 import Lottie from "lottie-react";
-import arr from "../../../assets/json/arr.json";
-import styled, { keyframes, css } from "styled-components";
+import scroll from "../../../assets/json/scroll.json";
+import styled from "styled-components";
 import Green from "./Green";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Container = styled.div`
   width: 100%;
@@ -12,11 +14,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-`;
-
-const fadeOn = keyframes`
-  0% { opacity: 0; width: 0; }
-  100% { opacity: 1; width: 100%; }
+  background: #fff;
+  color: #000;
+  z-index: -101;
 `;
 
 const MainWrap = styled.div`
@@ -27,13 +27,6 @@ const MainWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  ${({ $shouldFadeOn }) =>
-    $shouldFadeOn &&
-    css`
-      animation: ${fadeOn} 1.5s forwards;
-      animation-delay: 1.5s;
-    `}
 `;
 
 const Title = styled.div`
@@ -47,70 +40,66 @@ const Title = styled.div`
   position: relative;
 `;
 
-const Name = styled.h1`
+const NameContainer = styled.div`
   width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+
+const Name01 = styled.h1`
+  width: auto;
   height: auto;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 17.5vw;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 12vw;
   text-align: center;
   font-family: "G B";
   line-height: 16vw;
+  z-index: 2;
 `;
 
-const textMove = keyframes`
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+const Name02 = styled.h1`
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 12vw;
+  text-align: center;
+  font-family: "G B";
+  line-height: 16vw;
+  z-index: 2;
 `;
 
-const hide = keyframes`
-  0% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const textFadeOn = keyframes`
-  0% { 
-    opacity: 0; 
-    width: 0; 
-    transform: translateX(50%); 
-  }
-  100% { 
-    opacity: 1; 
-    width: 100%; 
-    transform: translateX(0); 
-  }
+const BlackBox = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 25vw;
+  transform: translateY(-50%);
+  width: 18vw;
+  height: 20px;
+  border-radius: 20px;
+  background: #000;
+  z-index: -101;
 `;
 
 const TextAni = styled.div`
   width: 100%;
   height: 5.8vmin;
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 0;
   transform: translateY(-50%);
   z-index: 100;
   background: #000;
   color: #bbf744;
   overflow: hidden;
-  ${({ $shouldFadeOn }) =>
-    $shouldFadeOn &&
-    css`
-      animation: ${textFadeOn} 1s forwards;
-      animation-delay: 1.5s;
-    `}
 `;
 
 const TextMove = styled.div`
@@ -119,11 +108,6 @@ const TextMove = styled.div`
   width: 100%;
   height: 5.8vmin;
   transform: translateX(0);
-  ${({ $hideText }) =>
-    $hideText &&
-    css`
-      animation: ${hide} 4s forwards, ${textMove} 12s linear infinite 3s;
-    `}
 `;
 
 const Text = styled.div`
@@ -134,47 +118,95 @@ const Text = styled.div`
   white-space: nowrap;
 `;
 
-const ArrLottie = styled(Lottie)`
+const ScrollLottie = styled(Lottie)`
+  width: 80px;
+  height: 80px;
   position: absolute;
   bottom: 0;
-  width: 150px;
-  height: 150px;
-  margin-bottom: 50px;
-  opacity: 0;
-  ${({ $shouldFadeOn }) =>
-    $shouldFadeOn &&
-    css`
-      animation: ${fadeOn} 1s forwards;
-      animation-delay: 2.5s;
-    `}
+  margin: 50px;
 `;
 
 const Intro = () => {
-  const [shouldFadeOn, setShouldFadeOn] = useState(false);
-  const [hideText, setHideText] = useState(false);
+  const mainWrapRef = useRef(null);
+  const name01Ref = useRef(null);
+  const name02Ref = useRef(null);
+  const textWrapRef = useRef(null);
+  const blackBoxRef = useRef(null);
+  const textMoveRef = useRef(null);
 
-  useEffect(() => {
-    const fadeTimer = setTimeout(() => {
-      setShouldFadeOn(true);
-    }, 800);
+  useGSAP(() => {
+    const mainWrap = mainWrapRef.current;
+    const name01 = name01Ref.current;
+    const name02 = name02Ref.current;
+    const textWrap = textWrapRef.current;
+    const blackBox = blackBoxRef.current;
+    const textMove = textMoveRef.current;
 
-    const hideTimer = setTimeout(() => {
-      setHideText(true);
-    }, 2000); // Ensure text is visible for 2 seconds before starting animation
+    const introTl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
 
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(hideTimer);
-    };
-  }, []);
+    introTl
+      .to(mainWrap, {
+        backgroundColor: "white",
+        duration: 0.5,
+      })
+      .to(blackBox, {
+        width: "100vw",
+        height: "100vh",
+        borderRadius: 0,
+        left: 0,
+        duration: 2,
+        backgroundColor: "#000",
+      })
+      .to([name01, name02], {
+        fontSize: "17vw",
+        color: "#fff",
+        duration: 2,
+        ease: "power2.inOut",
+        delay: -2,
+      })
+      .fromTo(
+        textWrap,
+        { height: 0 },
+        {
+          height: "5.8vmin",
+          zIndex: 10,
+          duration: 0.7,
+        }
+      )
+      .fromTo(
+        textMove,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          zIndex: 10,
+          duration: 1,
+          ease: "none",
+        }
+      )
+      .fromTo(
+        textMove,
+        { x: "0" },
+        {
+          x: "-100%",
+          zIndex: 10,
+          duration: 15,
+          repeat: -1,
+          ease: "none",
+        }
+      );
+  });
 
   return (
-    <Container>
-      <MainWrap $shouldFadeOn={shouldFadeOn}>
+    <Container ref={mainWrapRef}>
+      <MainWrap>
         <Title>
-          <Name $shouldFadeOn={shouldFadeOn}>SUHYANG</Name>
-          <TextAni $shouldFadeOn={shouldFadeOn}>
-            <TextMove $hideText={hideText}>
+          <NameContainer>
+            <Name01 ref={name01Ref}>SU</Name01>
+            <BlackBox ref={blackBoxRef} />
+            <Name02 ref={name02Ref}>HYANG</Name02>
+          </NameContainer>
+          <TextAni ref={textWrapRef}>
+            <TextMove ref={textMoveRef}>
               <Text>
                 Hello and welcome to my site! I appreciate your visit and am
                 excited to showcase my work and skills. Combining innovative
@@ -188,9 +220,9 @@ const Intro = () => {
               </Text>
             </TextMove>
           </TextAni>
-          <ArrLottie $shouldFadeOn={shouldFadeOn} animationData={arr} />
+          <ScrollLottie animationData={scroll} />
         </Title>
-        <Green $shouldFadeOn={shouldFadeOn} />
+        <Green />
       </MainWrap>
     </Container>
   );

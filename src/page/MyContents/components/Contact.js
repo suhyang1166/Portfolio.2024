@@ -18,6 +18,7 @@ const Container = styled.div`
   align-items: center;
   h1 {
     width: 100%;
+    height: auto;
     position: absolute;
     bottom: -8%;
     left: 50%;

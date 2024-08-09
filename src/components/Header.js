@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import React, { useRef } from "react";
+import styled from "styled-components";
 import LOGO from "../assets/img/LOGO.svg";
-
-const fadeOn = keyframes`
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-`;
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const HeaderWrap = styled.header`
   position: fixed;
@@ -20,12 +17,6 @@ const HeaderWrap = styled.header`
   color: #fff;
   z-index: 1000;
   opacity: 0;
-  ${({ $shouldFadeOn }) =>
-    $shouldFadeOn &&
-    css`
-      animation: ${fadeOn} 1s forwards;
-      animation-delay: 2.5s;
-    `}
   @media (max-width: 600px) {
     padding: 0 20px;
   }
@@ -70,21 +61,28 @@ const Index = styled.li`
 `;
 
 const Header = ({ handleMenuClick }) => {
-  const [shouldFadeOn, setShouldFadeOn] = useState(false);
+  const headerRef = useRef(null);
+
   const menuList = ["ABOUT", "PROJECT", "CONTACT"];
 
-  useEffect(() => {
-    const fadeTimer = setTimeout(() => {
-      setShouldFadeOn(true);
-    }, 800);
+  useGSAP(() => {
+    const header = headerRef.current;
 
-    return () => {
-      clearTimeout(fadeTimer);
-    };
-  }, []);
+    gsap.fromTo(
+      header,
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        duration: 1,
+        delay: 3.2,
+      }
+    );
+  });
 
   return (
-    <HeaderWrap $shouldFadeOn={shouldFadeOn}>
+    <HeaderWrap ref={headerRef}>
       <Logo src={LOGO} onClick={() => handleMenuClick("MAIN")} />
       <IndexWrap>
         {menuList.map((menu, idx) => (
