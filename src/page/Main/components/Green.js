@@ -25,9 +25,6 @@ const Green3D = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     transform: rotate3d(1, 1, 10, 45deg);
-    opacity: ${({ $shouldFadeOn }) => ($shouldFadeOn ? 1 : 0)};
-    transition: opacity 1.5s;
-
     @media (max-width: 1270px) {
         width: 200px;
     }
