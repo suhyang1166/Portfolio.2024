@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Lottie from "lottie-react";
 import scroll from "../../../assets/json/scroll.json";
 import styled from "styled-components";
@@ -133,6 +133,20 @@ const Intro = () => {
   const textWrapRef = useRef(null);
   const blackBoxRef = useRef(null);
   const textMoveRef = useRef(null);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.style.overflow = "hidden";
+
+    const timer = setTimeout(() => {
+      document.body.style.overflow = "auto";
+    }, 1800);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   useGSAP(() => {
     const mainWrap = mainWrapRef.current;

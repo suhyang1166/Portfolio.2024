@@ -10,7 +10,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
 const Container = styled.div`
@@ -324,7 +323,6 @@ const About = () => {
           duration: 200,
           ease: "none",
           fontSize: "60px",
-          scrub: 0.01,
         }
       )
       .fromTo(
@@ -336,7 +334,6 @@ const About = () => {
           duration: 10,
           ease: "none",
           color: "#fff",
-          scrub: 0.01,
         }
       )
       .fromTo(

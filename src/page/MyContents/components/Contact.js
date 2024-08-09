@@ -52,6 +52,11 @@ const Contact = () => {
   useGSAP(() => {
     const contact = contactRef.current;
 
+    const startValue =
+      window.innerHeight < 900 ? "top+=7500 top" : "top+=9200 top";
+    const endValue =
+      window.innerHeight < 900 ? "bottom+=7500 bottom" : "bottom+=9200 bottom";
+
     gsap.fromTo(
       contact,
       {
@@ -65,8 +70,8 @@ const Contact = () => {
         ease: "none",
         scrollTrigger: {
           trigger: contact,
-          start: "top+=7500 top",
-          end: "bottom+=7500 bottom",
+          start: startValue,
+          end: endValue,
           scrub: 1,
           // markers: true,
         },
