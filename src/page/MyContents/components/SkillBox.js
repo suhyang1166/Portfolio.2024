@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -98,9 +98,24 @@ const SkillImg = styled.div`
 `;
 
 const SkillBox = ({ skill }) => {
+  const skillWrapRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    skillWrapRef.current.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const handleMouseLeave = () => {
+    skillWrapRef.current.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
-    <Container>
-      <SkillWrap>
+    <Container onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <SkillWrap ref={skillWrapRef}>
         <h3>{skill.skill}</h3>
         <SkillImgWrap>
           {skill.img.map((imgName, idx) => {
